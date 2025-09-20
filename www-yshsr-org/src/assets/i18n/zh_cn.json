@@ -1,0 +1,24 @@
+{
+  "translation": {
+    "home": "首页",
+    "about": "关于",
+    "projects": "项目",
+    "contact": "联系",
+    "hsr_cloud": "Hsr Cloud",
+    "hello_world": "你好世界！",
+    "modernized_website": "这是一个现代化的网站。",
+    "powered_by": "由 Gemini & Claude 和 Shadcn/ui 提供支持。",
+    "about_hsr_cloud": "关于 Hsr Cloud",
+    "about_description": "一个由 Gemini & Claude 驱动的现代化个人导航网站。",
+    "version": "版本",
+    "author": "作者",
+    "tech_stack": "技术栈",
+    "my_projects": "我的项目",
+    "view_project": "查看项目",
+    "toggle_language": "切换语言",
+    "star": "星",
+    "contact_description": "通过电子邮件联系我。",
+    "email": "邮箱",
+    "alternate_email": "备用邮箱"
+  }
+}

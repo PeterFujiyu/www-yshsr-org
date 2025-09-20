@@ -1,0 +1,1 @@
+如果需要添加任何图片/音频等资源，请说明告知并提供完整资源，在html中引用 [https://www-images.yshsr.org/{filename}] 以使用cdn加速.

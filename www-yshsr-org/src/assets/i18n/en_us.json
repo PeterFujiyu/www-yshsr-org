@@ -1,0 +1,24 @@
+{
+  "translation": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "hsr_cloud": "Hsr Cloud",
+    "hello_world": "Hello World!",
+    "modernized_website": "This is a modernized version of the website.",
+    "powered_by": "Powered by Gemini & Claude and Shadcn/ui.",
+    "about_hsr_cloud": "About Hsr Cloud",
+    "about_description": "A modern personal navigation website driven by Gemini & Claude.",
+    "version": "Version",
+    "author": "Author",
+    "tech_stack": "Tech Stack",
+    "my_projects": "My Projects",
+    "view_project": "View Project",
+    "toggle_language": "Toggle language",
+    "star": "Star",
+    "contact_description": "Feel free to reach out to me via email.",
+    "email": "Email",
+    "alternate_email": "Alternate Email"
+  }
+}
