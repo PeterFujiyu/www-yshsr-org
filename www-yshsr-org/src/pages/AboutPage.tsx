@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
 
 export function AboutPage() {
@@ -7,20 +13,21 @@ export function AboutPage() {
     <div className="container mx-auto flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
       <Card className="w-full max-w-4xl">
         <CardHeader>
-          <CardTitle>{t('about_hsr_cloud')}</CardTitle>
-          <CardDescription>
-            {t('about_description')}
-          </CardDescription>
+          <CardTitle>{t("about_hsr_cloud")}</CardTitle>
+          <CardDescription>{t("about_description")}</CardDescription>
+        </CardHeader>
+        <CardHeader>
+          <CardTitle>{t("about_me")}</CardTitle>
+          <CardDescription>{t("about_me_description")}</CardDescription>
         </CardHeader>
         <CardContent className="py-8">
+          <p className="text-sm text-muted-foreground">{t("version")}: 1.0.0</p>
           <p className="text-sm text-muted-foreground">
-            {t('version')}: 1.0.0
+            {t("author")}: Gemini & Claude
           </p>
           <p className="text-sm text-muted-foreground">
-            {t('author')}: Gemini & Claude
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {t('tech_stack')}: React, Vite, Tailwind CSS, Shadcn/ui, React Router
+            {t("tech_stack")}: React, Vite, Tailwind CSS, Shadcn/ui, React
+            Router
           </p>
         </CardContent>
       </Card>

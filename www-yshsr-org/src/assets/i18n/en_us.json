@@ -19,6 +19,8 @@
     "star": "Star",
     "contact_description": "Feel free to reach out to me via email.",
     "email": "Email",
-    "alternate_email": "Alternate Email"
+    "alternate_email": "Alternate Email",
+    "about_me": "About Me",
+    "about_me_description": "My name is Peter, you can call me 0xPeter. My github username is PeterFujiyu."
   }
 }
