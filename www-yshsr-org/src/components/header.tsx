@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
 import { Logo } from "./logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 interface HeaderProps {
@@ -10,6 +10,10 @@ interface HeaderProps {
 export function Header({ }: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const routes = ['/', '/about', '/project', '/contact'];
 
   const toggleLanguage = () => {
     i18n.changeLanguage(i18n.language === 'en_us' ? 'zh_cn' : 'en_us');
@@ -19,21 +23,84 @@ export function Header({ }: HeaderProps) {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  const handleNavClick = (targetPath: string, event: React.MouseEvent) => {
+    event.preventDefault();
+
+    const currentIndex = routes.indexOf(location.pathname);
+    const targetIndex = routes.indexOf(targetPath);
+
+    if (currentIndex === targetIndex) return;
+
+    // Calculate animation duration based on distance
+    const distance = Math.abs(targetIndex - currentIndex);
+    const baseDuration = 200;
+    const maxDuration = 400;
+    const minDuration = 150;
+    const duration = Math.min(maxDuration, Math.max(minDuration, baseDuration + distance * 50));
+
+    // Apply animation to the main container
+    const mainElement = document.querySelector('[data-swipeable]') as HTMLElement;
+    if (mainElement) {
+      mainElement.style.setProperty('--animation-duration', `${duration}ms`);
+
+      // Determine direction
+      const direction = targetIndex > currentIndex ? 'left' : 'right';
+      mainElement.classList.add('page-transition', `slide-${direction}`);
+
+      // Navigate after a brief delay to show the animation start
+      setTimeout(() => {
+        navigate(targetPath);
+
+        // Clean up animation classes
+        setTimeout(() => {
+          mainElement.classList.remove('page-transition', 'slide-left', 'slide-right');
+        }, duration);
+      }, 10);
+    } else {
+      // Fallback if no swipeable container found
+      navigate(targetPath);
+    }
+  };
+
   return (
     <header className="flex items-center justify-between p-4 border-b">
       <div className="flex items-center space-x-8">
         <Logo />
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-base font-medium text-muted-foreground hover:text-primary">
+          <Link
+            to="/"
+            onClick={(e) => handleNavClick('/', e)}
+            className={`text-base font-medium transition-colors duration-200 hover:scale-105 active:scale-95 ${
+              location.pathname === '/' ? 'text-primary nav-link-active' : 'text-muted-foreground hover:text-primary'
+            }`}
+          >
             {t('home')}
           </Link>
-          <Link to="/about" className="text-base font-medium text-muted-foreground hover:text-primary">
+          <Link
+            to="/about"
+            onClick={(e) => handleNavClick('/about', e)}
+            className={`text-base font-medium transition-colors duration-200 hover:scale-105 active:scale-95 ${
+              location.pathname === '/about' ? 'text-primary nav-link-active' : 'text-muted-foreground hover:text-primary'
+            }`}
+          >
             {t('about')}
           </Link>
-          <Link to="/project" className="text-base font-medium text-muted-foreground hover:text-primary">
+          <Link
+            to="/project"
+            onClick={(e) => handleNavClick('/project', e)}
+            className={`text-base font-medium transition-colors duration-200 hover:scale-105 active:scale-95 ${
+              location.pathname === '/project' ? 'text-primary nav-link-active' : 'text-muted-foreground hover:text-primary'
+            }`}
+          >
             {t('projects')}
           </Link>
-          <Link to="/contact" className="text-base font-medium text-muted-foreground hover:text-primary">
+          <Link
+            to="/contact"
+            onClick={(e) => handleNavClick('/contact', e)}
+            className={`text-base font-medium transition-colors duration-200 hover:scale-105 active:scale-95 ${
+              location.pathname === '/contact' ? 'text-primary nav-link-active' : 'text-muted-foreground hover:text-primary'
+            }`}
+          >
             {t('contact')}
           </Link>
         </div>

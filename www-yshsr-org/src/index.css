@@ -61,6 +61,148 @@
   75% { transform: rotate(3deg) scale(1.25); }
 }
 
+/* Swipeable page animations */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
+}
+
+/* Page transition classes */
+.page-transition {
+  --animation-duration: 300ms;
+}
+
+.page-transition.slide-left {
+  animation: slideInFromRight var(--animation-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.page-transition.slide-right {
+  animation: slideInFromLeft var(--animation-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Performance optimizations */
+.page-transition,
+[data-swipeable] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth drag experience */
+.cursor-grabbing {
+  cursor: grabbing !important;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.cursor-grab {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+/* Enhanced touch responsiveness */
+[data-swipeable] {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth transitions for page content */
+[data-swipeable] > * {
+  transition: transform 0.1s ease-out;
+}
+
+/* Prevent text selection during drag */
+.cursor-grabbing * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+/* Optimize rendering performance */
+@media (max-width: 768px) {
+  [data-swipeable] {
+    will-change: transform;
+  }
+}
+
+/* Navigation click animations */
+.nav-link-active {
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 1px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Logo hover animation enhancement */
+.logo-hover-effect {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-hover-effect:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
 .animate-shake {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
