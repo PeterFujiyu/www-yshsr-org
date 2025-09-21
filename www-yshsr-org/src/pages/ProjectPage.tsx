@@ -1,59 +1,15 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Github } from "lucide-react"; // Import Github icon
-import { useEffect, useState } from "react";
+import { Github } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useGitHubRepo } from "@/hooks/use-github-repo";
+import { projects, type Project } from "@/config/projects";
+import { memo } from "react";
 
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  link: string;
-}
+type ProjectCardProps = Project;
 
-// Helper function to extract GitHub owner and repo from a URL
-function getGithubRepoInfo(url: string): { owner: string; repo: string } | null {
-  try {
-    const urlObj = new URL(url);
-    if (urlObj.hostname === "github.com") {
-      const pathParts = urlObj.pathname.split('/').filter(part => part !== '');
-      if (pathParts.length >= 2) {
-        return { owner: pathParts[0], repo: pathParts[1] };
-      }
-    }
-  } catch (error) {
-    console.error("Invalid URL:", url);
-  }
-  return null;
-}
-
-function ProjectCard({ title, description, link }: ProjectCardProps) {
+const ProjectCard = memo(function ProjectCard({ title, description, link }: ProjectCardProps) {
   const { t } = useTranslation();
-  const [stars, setStars] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const repoInfo = getGithubRepoInfo(link);
-    if (repoInfo) {
-      const { owner, repo } = repoInfo;
-      fetch(`https://api.github.com/repos/${owner}/${repo}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.statusText}`);
-          }
-          return response.json();
-        })
-        .then(data => {
-          setStars(data.stargazers_count);
-          setLoading(false);
-        })
-        .catch(err => {
-          setError(err.message);
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [link]);
+  const { stars, loading, error } = useGitHubRepo(link);
 
   return (
     <Card className="w-full">
@@ -66,7 +22,7 @@ function ProjectCard({ title, description, link }: ProjectCardProps) {
           <Github className="h-4 w-4" />
           <span>{t('view_project')}</span>
           {loading && <span>...</span>}
-          {error && <span className="text-red-500">Error</span>}
+          {error && <span className="text-red-500 text-sm">Error loading repo</span>}
           {stars !== null && (
             <span className="flex items-center space-x-1">
               <span>{t('star')}:</span>
@@ -77,32 +33,10 @@ function ProjectCard({ title, description, link }: ProjectCardProps) {
       </CardContent>
     </Card>
   );
-}
+});
 
 export function ProjectPage() {
   const { t } = useTranslation();
-  const projects = [
-    {
-      title: "Hsr Cloud Website",
-      description: "A modern personal navigation website built with React, Vite, and Tailwind CSS.",
-      link: "https://github.com/PeterFujiyu/www-yshsr-org",
-    },
-    {
-      title: "Geektools",
-      description: "A project to run shell script and download plugin with Rust.",
-      link: "https://github.com/PeterFujiyu/geektools",
-    },
-    {
-      title: "Geektools Plugin Marketplace",
-      description: "A project to run a Geektools Plugin Marketplace Server with Rust.",
-      link: "https://github.com/PeterFujiyu/pluginmarket",
-    },
-    {
-      title: "More?",
-      description: "Wait and see...",
-      link: "https://github.com/PeterFujiyu/pluginmarket", // Example GitHub link
-    },
-  ];
 
   return (
     <div className="container mx-auto py-8">

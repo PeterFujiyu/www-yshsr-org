@@ -18,7 +18,7 @@ i18n
     },
     lng: 'en_us', // Explicitly set the language
     fallbackLng: 'en_us',
-    debug: true,
+    debug: false,
     interpolation: {
       escapeValue: false,
     },

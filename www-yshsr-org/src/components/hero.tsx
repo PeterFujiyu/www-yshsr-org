@@ -26,15 +26,32 @@ export function Hero() {
   };
 
   useEffect(() => {
-    fetch("https://api.allorigins.win/raw?url=https://www-images.yshsr.org/www-yshsr-org/motd.md")
-      .then((response) => response.text())
-      .then((text) => {
+    const fetchMotd = async () => {
+      try {
+        const response = await fetch("https://api.allorigins.win/raw?url=https://www-images.yshsr.org/www-yshsr-org/motd.md");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const text = await response.text();
         const fetchedLines = text.split('.').filter(line => line.trim() !== '');
+
+        if (fetchedLines.length === 0) {
+          setMotd("Welcome to my website!");
+          return;
+        }
+
         setLines(fetchedLines);
         const randomLine = fetchedLines[Math.floor(Math.random() * fetchedLines.length)];
         setMotd(randomLine.trim());
-      })
-      .catch(error => console.error("Fetch error:", error));
+      } catch (error) {
+        console.error("Failed to fetch MOTD:", error);
+        setMotd("Welcome to my website!"); // Fallback message
+      }
+    };
+
+    fetchMotd();
   }, []);
 
   return (

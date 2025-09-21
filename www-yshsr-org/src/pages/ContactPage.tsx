@@ -5,14 +5,31 @@ import { Button } from "@/components/ui/button"; // Import Button component
 export function ContactPage() {
   const { t } = useTranslation();
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        alert('Copied to clipboard: ' + text); // Simple feedback
-      })
-      .catch(err => {
-        console.error('Failed to copy: ', err);
-      });
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // TODO: Replace alert with a proper toast notification
+      alert('Copied to clipboard: ' + text);
+    } catch (err) {
+      console.error('Failed to copy to clipboard:', err);
+      // Fallback for older browsers or when clipboard API is not available
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        textArea.remove();
+        alert('Copied to clipboard: ' + text);
+      } catch (fallbackErr) {
+        console.error('Fallback copy failed:', fallbackErr);
+        alert('Unable to copy to clipboard');
+      }
+    }
   };
 
   return (
