@@ -12,6 +12,7 @@ export function Header() {
   const { isTransitioning: isLanguageTransitioning, setIsTransitioning } = useLanguage();
   const [isThemeAnimating, setIsThemeAnimating] = useState(false);
   const [isLanguageAnimating, setIsLanguageAnimating] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleLanguage = () => {
     setIsLanguageAnimating(true);
@@ -39,17 +40,31 @@ export function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between p-4 border-b">
-      <div className="flex items-center space-x-8">
+    <header className="flex flex-wrap items-center justify-between p-4 border-b">
+      <div className="flex items-center">
         <Logo />
-        <div className={`hidden md:flex items-center space-x-8 content-transition ${isLanguageTransitioning ? 'language-fade-out' : 'language-fade-in'}`}>
+      </div>
+      <div className="md:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <span className="sr-only">Toggle menu</span>
+        </Button>
+      </div>
+      <nav className={`w-full md:w-auto md:flex flex-grow md:flex-grow-0 ${isMenuOpen ? 'block' : 'hidden'}`}>
+        <div className={`flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-8 mt-4 md:mt-0 ${isLanguageTransitioning ? 'language-fade-out' : 'language-fade-in'}`}>
           <NavLink to="/">{t('home')}</NavLink>
           <NavLink to="/about">{t('about')}</NavLink>
           <NavLink to="/project">{t('projects')}</NavLink>
           <NavLink to="/contact">{t('contact')}</NavLink>
         </div>
-      </div>
-      <div className="flex items-center space-x-4">
+      </nav>
+      <div className="flex items-center space-x-4 ml-auto md:ml-0">
         <Button
           variant="ghost"
           size="icon"
