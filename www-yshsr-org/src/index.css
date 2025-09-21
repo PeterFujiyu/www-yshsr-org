@@ -47,6 +47,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {
@@ -79,6 +80,83 @@ body {
   0%, 100% { transform: rotate(0deg) scale(1.25); }
   25% { transform: rotate(-3deg) scale(1.25); }
   75% { transform: rotate(3deg) scale(1.25); }
+}
+
+/* Theme button animations */
+@keyframes themeToggle {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(0.9) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+@keyframes languageToggle {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+
+/* Button click feedback */
+.theme-button-clicked {
+  animation: themeToggle 0.4s ease-in-out;
+}
+
+.language-button-clicked {
+  animation: languageToggle 0.3s ease-in-out;
+}
+
+/* Enhanced button hover effects */
+.theme-toggle-button {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.theme-toggle-button:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.language-toggle-button {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.language-toggle-button:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+/* Language transition effects */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.language-fade-out {
+  animation: fadeOut 0.2s ease-out forwards;
+}
+
+.language-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Content transition wrapper */
+.content-transition {
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 /* Swipeable page animations */
@@ -180,6 +258,21 @@ body {
   [data-swipeable] {
     will-change: transform;
   }
+}
+
+/* Theme transition animations */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, fill 0.3s ease;
+}
+
+/* Disable transitions during page load to prevent flash */
+.preload * {
+  transition: none !important;
+}
+
+/* Smooth transitions for common UI elements */
+button, a, header, nav, main, .border-b {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 /* Navigation click animations */

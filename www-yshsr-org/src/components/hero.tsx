@@ -9,12 +9,14 @@ import {
 import Typewriter from "./Typewriter";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/hooks/use-language";
 
 export function Hero() {
   const [lines, setLines] = useState<string[]>([]);
   const [motd, setMotd] = useState("");
   const [isCoolingDown, setIsCoolingDown] = useState(false);
   const { t } = useTranslation();
+  const { isTransitioning } = useLanguage();
 
   const getNewGuid = () => {
     if (lines.length > 0 && !isCoolingDown) {
@@ -61,9 +63,9 @@ export function Hero() {
         onClick={getNewGuid}
         style={{ cursor: isCoolingDown ? 'not-allowed' : 'pointer' }}
       >
-        <CardHeader>
-          <CardTitle>{t('hello_world')}</CardTitle>
-          <CardDescription>
+        <CardHeader className={isTransitioning ? 'language-fade-out' : 'language-fade-in'}>
+          <CardTitle className="content-transition">{t('hello_world')}</CardTitle>
+          <CardDescription className="content-transition">
             {t('modernized_website')}
           </CardDescription>
         </CardHeader>
@@ -77,8 +79,8 @@ export function Hero() {
             />
           )}
         </CardContent>
-        <CardFooter>
-          <p>{t('powered_by')}</p>
+        <CardFooter className={isTransitioning ? 'language-fade-out' : 'language-fade-in'}>
+          <p className="content-transition">{t('powered_by')}</p>
         </CardFooter>
       </Card>
     </div>

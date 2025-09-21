@@ -20,6 +20,9 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement
 
+    // Add preload class to prevent transitions during initial load
+    root.classList.add("preload")
+
     root.classList.remove("light", "dark")
 
     if (theme === "system") {
@@ -29,10 +32,14 @@ export function ThemeProvider({
         : "light"
 
       root.classList.add(systemTheme)
-      return
+    } else {
+      root.classList.add(theme)
     }
 
-    root.classList.add(theme)
+    // Remove preload class after a short delay to enable transitions
+    setTimeout(() => {
+      root.classList.remove("preload")
+    }, 100)
   }, [theme])
 
   const value = {
