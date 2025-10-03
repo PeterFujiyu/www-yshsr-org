@@ -30,7 +30,7 @@ export function Hero() {
   useEffect(() => {
     const fetchMotd = async () => {
       try {
-        const response = await fetch("https://api.allorigins.win/raw?url=http://www-cdn.yshsr.org/www-yshsr-org/motd.md");
+        const response = await fetch("https://storage.googleapis.com/www-file-storage/www-yshsr-org/motd.md");
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
