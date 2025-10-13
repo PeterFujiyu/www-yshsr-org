@@ -1,4 +1,5 @@
 import { Header } from "./header";
+import { Footer } from "./footer";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,6 +8,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-grow relative overflow-hidden" data-swipeable>
         {children}
       </main>
+      <Footer />
     </div>
   );
 }

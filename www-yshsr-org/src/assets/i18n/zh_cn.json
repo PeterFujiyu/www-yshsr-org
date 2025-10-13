@@ -21,6 +21,9 @@
     "email": "邮箱",
     "alternate_email": "备用邮箱",
     "about_me": "关于我",
-    "about_me_description": "我的名字叫 Peter，你可以叫我 0xPeter。我的 GitHub 用户名是 PeterFujiyu。"
+    "about_me_description": "我的名字叫 Peter，你可以叫我 0xPeter。我的 GitHub 用户名是 PeterFujiyu。",
+    "hsr_cloud_inc": "0xPeter",
+    "all_rights_reserved": "版权所有。",
+    "powered_by_gcp": "由 Google Cloud 提供支持。"
   }
 }

@@ -21,6 +21,9 @@
     "email": "Email",
     "alternate_email": "Alternate Email",
     "about_me": "About Me",
-    "about_me_description": "My name is Peter, you can call me 0xPeter. My github username is PeterFujiyu."
+    "about_me_description": "My name is Peter, you can call me 0xPeter. My github username is PeterFujiyu.",
+    "hsr_cloud_inc": "0xPeter",
+    "all_rights_reserved": "All rights reserved.",
+    "powered_by_gcp": "Powered by Google Cloud."
   }
 }
